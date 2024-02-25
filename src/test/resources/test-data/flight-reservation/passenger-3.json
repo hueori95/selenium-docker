@@ -1,0 +1,11 @@
+{
+  "firstname": "cheb",
+  "lastname": "khaled",
+  "email": "khaled@pop.com",
+  "password": "abc",
+  "street": "123 main street",
+  "city": "Ha Noi",
+  "zip": "50001",
+  "passengersCount": "3",
+  "expectedPrice": "$1753 USD"
+}

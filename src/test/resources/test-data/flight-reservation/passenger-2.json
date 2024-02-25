@@ -1,0 +1,11 @@
+{
+  "firstname": "dr",
+  "lastname": "kasda",
+  "email": "kjas92@pop.com",
+  "password": "abc",
+  "street": "123 main street",
+  "city": "Ha Noi",
+  "zip": "40001",
+  "passengersCount": "4",
+  "expectedPrice": "$2338 USD"
+}
