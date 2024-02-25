@@ -1,25 +1,31 @@
-pipeline{
-    agent any
-    stages {
-        stage('stage-1'){
-            steps{
-                sh "mvn clean package -DskipTests"
+    pipeline{
+        agent any
+        stages {
+            stage('Build jar'){
+                steps{
+                    sh "mvn clean package -DskipTests"
+                }
+            }
+            stage('Build Image'){
+                steps{
+                    sh "docker build -t=huent995/selenium:lastest ."
+                }
+            }
+            stage('Push Image'){
+                environment{
+                    DOCKER_HUB = credentials('dockerhub-creds')
+                }
+                steps{
+                    sh 'docker login -u ${DOCKER_HUB_USR} -p ${DOCKER_HUB_PSW}'
+                    sh "docker push huent995/selenium:lastest"
+                    sh "docker tag huent995/selenium:lastest huent995/selenium:${env.BUILD_NUMBER}"
+                    sh "docker push huent995/selenium:${env.BUILD_NUMBER}"
+                }
             }
         }
-        stage('stage-2'){
-            steps{
-                sh "docker build -t=vinsdocker/selenium ."
-            }
-        }
-        stage('stage-3'){
-            steps{
-                sh "docker push vinsdocker/selenium"
+        post {
+            always {
+                sh "docker logout"
             }
         }
     }
-    post {
-        always {
-            echo "doing clean up"
-        }
-    }
-}
